@@ -23,6 +23,7 @@ in_phtt = 'Введите имя пользователя >> '
 iz_phtt = 'Введите название зоны для доступа >> '
 id_phttc = '#000000'
 id_fgc = '#A9A9A9'
+id_tc = '#000000'
 id_ft = ('Helvetica', 15, 'bold')
 
 'config_menu_btn'
@@ -72,6 +73,7 @@ in_phtt_cu = 'Введите имя пользователя >> '
 iz_phtt_cu = 'Введите доступные зоны через запятую >> '
 i_phttc = '#000000'
 i_fgc = '#A9A9A9'
+i_tc = '#000000'
 i_ft = ('Helvetica', 15, 'bold')
 
 'config_menu_btn'

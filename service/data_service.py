@@ -32,12 +32,12 @@ class DataService:
 
 
     @staticmethod
-    def check_file_data_employee() -> bool:
+    def check_file_data_user() -> bool:
         """
         Проверяет наличие файла txt по указанному пути, в данном случае в папке
         :return: True или False
         """
-        file = path_dir + r'\data_employee.json'
+        file = path_dir + r'\data_user.json'
 
         if os.path.isfile(file):
             return True
@@ -45,13 +45,14 @@ class DataService:
             return False
 
     @staticmethod
-    def read_data_employees():
+    def read_data_user():
         with open(path_dir + r'\data_user.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data
 
+
     @staticmethod
-    def write_data_employees(data):
+    def write_data_user(data):
         with open(path_dir + r'\data_user.json', 'w', encoding='utf-8') as f:
             json.dump(data, f, ensure_ascii=False, indent=4)
             return True
@@ -73,7 +74,7 @@ class DataService:
 
     @staticmethod
     def read_data_common_areas():
-        with open(path_dir + r'\common_areas.json', 'r', encoding='utf-8') as f:
+        with open(path_common_areas + r'\common_areas.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data
 

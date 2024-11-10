@@ -1,28 +1,46 @@
-
+from static.processing_data import Processing
 from service.data_service import DataService as ds
 from utilits.tools.tools import *
 from tkinter.messagebox import *
 
 
-class User:
+class CreateUser:
     """
-    Создает нового сотрудника и определяет зоны доступные ему или добавляет доступные зоны ранее созданному сотруднику
+    Создает нового сотрудника и определяет зоны доступные ему
     """
-    def __init__(self, name: str, access_zone: str):
-        self.__name = name
-        self.__access_zone = access_zone.split(', ')
-        self.__load_data = ds.read_data_employees() if ds.check_file_data_employee() else {}
+    def __init__(self):
+        self.__load_data = Processing.get_load_data()
 
-    def add_access_zone(self) -> bool:
+    def add_access_zone(self, name: str, access_zone: str) -> bool:
         """
-        Добавляет доступную для сотрудника зону
-        :param data: принимает название зоны
+        Создает нового пользователя и определяет доступные для него зоны
+        :param name: Принимает имя пользователя
+        :param access_zone: Принимает название зон, доступных пользователю
         :return: bool
         """
-        self.__load_data[self.__name] = self.__access_zone
+        self.__load_data[name] = access_zone.split(',')
+
         showinfo('Успех', 'Пользователь успешно добавлен')
 
         return True
+
+
+    def remove_user(self, name) -> bool:
+        """
+        Удаляет пользователя из базы данных
+        :param name: Принимает имя пользователя
+        :return: bool
+        """
+
+        if name in self.__load_data:
+
+            del self.__load_data[name]
+
+            showinfo('Успех', 'Пользователь успешно удален')
+            return True
+
+        showerror('Ошибка ввода', 'Такого пользователя нет в базе данных')
+        return False
 
 
     def save(self) -> bool:
@@ -30,10 +48,18 @@ class User:
         Сохраняет данные в файл
         :return: bool
         """
+        ds.write_data_user(self.__load_data)
 
-        if ds.write_data_employees(self.__load_data):
-            showinfo('Успех', 'Пользователь успешно добавлен')
+        showinfo('Успех', 'Данные успешно сохранены')
+
+        print('Successfull')
+
         return True
+
+
+    @property
+    def load_data(self):
+        return self.__load_data
 
 
 
@@ -66,7 +92,7 @@ class SecuritySystem:
     def __init__(self, name: str, zone: str):
         self.__name = name
         self.__zone = zone
-        self.__data_employees = ds.read_data_employees() if ds.check_file_data_employee() else None
+        self.__data_employees = ds.read_data_user() if ds.check_file_data_user() else None
         self.__data_common_areas = ds.read_data_common_areas()
         self.__access_zone = self.__data_employees[self.__name]
         self.__storage = DataStorage()

@@ -25,11 +25,11 @@ class MainFrame(ctk.CTkFrame):
 
 
     def __config_inputs(self):
-        self.__input_name = ctk.CTkEntry(self, width=id_wh, height=id_ht, placeholder_text=in_phtt,
+        self.__input_name = ctk.CTkEntry(self, width=id_wh, height=id_ht, placeholder_text=in_phtt, text_color=id_tc,
                                          placeholder_text_color=id_phttc, fg_color=id_fgc , font=id_ft)
         self.__input_name.place(relx=0.18, rely=0.25)
 
-        self.__input_zone = ctk.CTkEntry(self, width=id_wh, height=id_ht, placeholder_text=iz_phtt,
+        self.__input_zone = ctk.CTkEntry(self, width=id_wh, height=id_ht, placeholder_text=iz_phtt, text_color=id_tc,
                                          placeholder_text_color=id_phttc, fg_color=id_fgc , font=id_ft)
         self.__input_zone.place(relx=0.18, rely=0.37)
 
