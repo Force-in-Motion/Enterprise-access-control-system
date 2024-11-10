@@ -21,17 +21,15 @@ class CreateUser:
         self.__load_data[name] = access_zone.split(',')
 
         showinfo('Успех', 'Пользователь успешно добавлен')
-
         return True
 
 
-    def remove_user(self, name) -> bool:
+    def remove_user(self, name: str) -> bool:
         """
         Удаляет пользователя из базы данных
         :param name: Принимает имя пользователя
         :return: bool
         """
-
         if name in self.__load_data:
 
             del self.__load_data[name]
@@ -51,8 +49,6 @@ class CreateUser:
         ds.write_data_user(self.__load_data)
 
         showinfo('Успех', 'Данные успешно сохранены')
-
-        print('Successfull')
 
         return True
 

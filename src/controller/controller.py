@@ -11,7 +11,7 @@ class UserController:
 
     def __init__(self):
         self.__user = CreateUser()
-        self.__old_data = self.__user.load_data
+        self.__old_data = self.__user.load_data.copy()
 
     def add_button_click_handler(self, name: str, access_zone: str) -> None:
         """
@@ -27,7 +27,7 @@ class UserController:
         self.__user.add_access_zone(name, access_zone)
 
 
-    def del_button_click_handler(self, name):
+    def del_button_click_handler(self, name: str) -> None:
         """
         Выполняет проверки получаемых данных, вызывает метод модели и передает проверенные данные для удаления пользователя
         :param name: Принимает имя пользователя в виде строки
@@ -38,14 +38,13 @@ class UserController:
         self.__user.remove_user(name)
 
 
-
-
-
-
-    def save_button_click_handler(self):
-
-        # assert self.__old_data != self.__user.load_data, showerror('Ошибка данных', 'Вы не внесли изменения, сохранять нечего')
-
-
+    def save_button_click_handler(self) -> None:
+        """
+        Выполняет проверки данных, если в данные вносились изменения вызывает метод модели, сохраняющий изменения в файле
+        :return:
+        """
+        assert self.__old_data != self.__user.load_data, showerror('Ошибка данных', 'Вы не внесли изменения, сохранять нечего')
 
         self.__user.save()
+
+        self.__old_data = self.__user.load_data.copy()
