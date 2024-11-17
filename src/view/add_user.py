@@ -59,12 +59,12 @@ class CreateUserFrame(ctk.CTkFrame):
 
     @property
     def name(self):
-        return self.__input_name.get()
+        return self.__input_name
 
 
     @property
     def zone(self):
-        return self.__input_zone.get()
+        return self.__input_zone
 
 
 
@@ -73,7 +73,6 @@ class GetDataUser(ctk.CTkToplevel):
     def __init__(self, main_window):
         super().__init__()
         self.__main_window = main_window
-        self.__controller = None
         self.__main_frame = None
         self.__controller = UserController()
         self.protocol("WM_DELETE_WINDOW", Processing.on_close)
@@ -94,11 +93,13 @@ class GetDataUser(ctk.CTkToplevel):
 
 
     def on_add_click(self):
-        self.__controller.add_button_click_handler(self.__main_frame.name, self.__main_frame.zone)
+        self.__controller.add_button_click_handler(self.__main_frame.name.get(), self.__main_frame.zone.get())
+        self.__main_frame.name.delete(0, ctk.END), self.__main_frame.zone.delete(0, ctk.END)
 
 
     def on_del_click(self):
         self.__controller.del_button_click_handler(self.__main_frame.name)
+        self.__main_frame.name.delete(0, ctk.END)
 
 
     def on_save_click(self):

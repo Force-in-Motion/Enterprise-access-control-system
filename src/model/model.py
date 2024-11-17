@@ -4,12 +4,13 @@ from utilits.tools.tools import *
 from tkinter.messagebox import *
 
 
-class CreateUser:
+class User:
     """
     Создает нового сотрудника и определяет зоны доступные ему
     """
     def __init__(self):
-        self.__load_data = Processing.get_load_data()
+        self.__data_users = Processing.get_data_users()
+
 
     def add_access_zone(self, name: str, access_zone: str) -> bool:
         """
@@ -18,7 +19,7 @@ class CreateUser:
         :param access_zone: Принимает название зон, доступных пользователю
         :return: bool
         """
-        self.__load_data[name] = access_zone.split(',')
+        self.__data_users[name] = access_zone.split(',')
 
         showinfo('Успех', 'Пользователь успешно добавлен')
         return True
@@ -30,9 +31,9 @@ class CreateUser:
         :param name: Принимает имя пользователя
         :return: bool
         """
-        if name in self.__load_data:
+        if name in self.__data_users:
 
-            del self.__load_data[name]
+            del self.__data_users[name]
 
             showinfo('Успех', 'Пользователь успешно удален')
             return True
@@ -46,7 +47,7 @@ class CreateUser:
         Сохраняет данные в файл
         :return: bool
         """
-        ds.write_data_user(self.__load_data)
+        ds.write_data_user(self.__data_users)
 
         showinfo('Успех', 'Данные успешно сохранены')
 
@@ -54,87 +55,93 @@ class CreateUser:
 
 
     @property
-    def load_data(self):
-        return self.__load_data
-
-
-
-
-
-
+    def data_users(self) -> dict:
+        return self.__data_users
 
 
 
 class DataStorage:
-
+    """
+    Управляет данными статистики ( записывает в базу или получает из нее )
+    """
     def __init__(self):
-        self.__data_log = ds.read_data_log() if ds.check_file_data_log() else {}
+        self.__data_log = Processing.get_log()
+        self.__data_log['granted'] = []
+        self.__data_log['denied'] = []
 
 
-    def get_access_granted(self) -> list[str]:
+    def add_granted(self, data) -> None:
+        """
+        Добавляет в базу статистики данные об успешных авторизациях пользователей
+        :param data: Принимает данные в виде строки
+        :return: None
+        """
+        self.__data_log['granted'].append(data)
+
+    def add_denied(self, data) -> None:
+        """
+        Добавляет в базу статистики данные об не успешных авторизациях пользователей
+        :param data: Принимает данные в виде строки
+        :return: None
+        """
+        self.__data_log['denied'].append(data)
+
+    @property
+    def granted(self) -> list[str]:
         return self.__data_log['granted']
 
 
-    def get_access_denied(self) -> list[str]:
+    @property
+    def denied(self) -> list[str]:
         return self.__data_log['denied']
 
-    def save(self) -> bool:
-        return True if ds.write_data_log(self.__data_log) else False
 
+    def save(self) -> None:
+        """
+        Перезаписывает в базу полученные данные, если файла нет - создает его
+        :return: None
+        """
+        ds.write_data_log(self.__data_log)
 
 
 
 class SecuritySystem:
-    def __init__(self, name: str, zone: str):
-        self.__name = name
-        self.__zone = zone
-        self.__data_employees = ds.read_data_user() if ds.check_file_data_user() else None
-        self.__data_common_areas = ds.read_data_common_areas()
-        self.__access_zone = self.__data_employees[self.__name]
+    """
+    Управляет авторизацией пользователей и их уровнями доступа
+    """
+    def __init__(self):
+        self.__data_users = Processing.get_load_data()
+        self.__common_areas = ds.read_data_common_areas()
         self.__storage = DataStorage()
-        self.__granted = self.__storage.get_access_granted()
-        self.__denied = self.__storage.get_access_denied()
-
-    @property
-    def name(self) -> str:
-        return self.__name
-
-    @property
-    def zone(self) -> str:
-        return self.__zone
-
-    @property
-    def data_employees(self) -> dict:
-        return self.__data_employees
-
-    @property
-    def access_zone(self) -> dict:
-        return self.__access_zone
-
-    @property
-    def common_areas(self) -> str:
-        return self.__data_common_areas['ca']
-
-    @property
-    def granted(self):
-        return self.__granted
-
-    @property
-    def denied(self):
-        return self.__denied
 
 
-
-    # @validation_enter(name, zone, access_zone, common_areas, data_employees)
-    # @validation_log(name, granted, denied)
-    def enter_zone(self) -> bool:
+    def enter_zone(self, name: str, zone: str) -> bool:
         """
-        Проверяет наличие принятой зоны доступа
-        :param employee:
-        :param zone:
-        :return:
+        Предоставляет пользователю доступ в систему если он соответствует требованиям, иначе сообщает об отказе в предоставлении доступа
+        :param name: Принимает имя пользователя
+        :param zone: Принимает название зоны для получения доступа
+        :return: bool
         """
-        showinfo('Confirm access', 'Enter successful')
+        access_zone = self.__data_users[name]
+        if zone in self.__common_areas:
+            showinfo('Вход разрешен', f'Вы вошли в зону {zone}')
+            self.__storage.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
+            return True
 
-        return True
+        if zone in access_zone:
+            showinfo('Вход разрешен', f'Вы вошли в зону {zone}')
+            self.__storage.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
+            return True
+
+        showerror('Вход запрещен', f'Вход в зону {zone} вам запрещен')
+        self.__storage.add_denied(f'Пользователю с именем {name} отказано в доступе в зону {zone}')
+        return False
+
+
+    @property
+    def storage(self):
+        return self.__storage
+
+
+
 

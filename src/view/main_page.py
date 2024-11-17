@@ -1,8 +1,8 @@
 from __future__ import annotations
 
 import customtkinter as ctk
-from src.model.model import SecuritySystem
 from src.view.add_user import GetDataUser
+from src.controller.controller import MainPageController
 from src.view.config_view import *
 
 
@@ -38,7 +38,7 @@ class MainFrame(ctk.CTkFrame):
         self.__enter_btn = ctk.CTkButton(self, width=en_wh, height=en_ht, text=en_tt, font=en_ft,
                                        text_color=en_ttc, fg_color=en_fgc)
         self.__enter_btn.place(relx=0.18, rely=0.55)
-        self.__enter_btn.configure(command=self.__main_page.enter_button_click_handler)
+        self.__enter_btn.configure(command=self.__main_page.on_enter_click)
 
         self.__exit_btn = ctk.CTkButton(self, width=ex_wh, height=ex_ht, text=ex_tt, font=ex_ft,
                                           text_color=ex_ttc, fg_color=ex_fgc)
@@ -53,22 +53,22 @@ class MainFrame(ctk.CTkFrame):
 
     @property
     def name(self):
-        return self.__input_name.get()
+        return self.__input_name
 
 
     @property
     def zone(self):
-        return self.__input_zone.get()
+        return self.__input_zone
 
 
 
 class MainPage(ctk.CTk):
     def __init__(self):
         super().__init__()
+        self.__controller = MainPageController()
+        self.__create_user_page = None
         self.__config_window()
         self.__config_frame()
-        self.__security = None
-        self.__create_user_page = None
 
 
     def __config_window(self):
@@ -83,21 +83,21 @@ class MainPage(ctk.CTk):
         self.__main_frame.pack_propagate(False)
 
 
-    def enter_button_click_handler(self):
-        if self.__security is None:
-            self.__security = SecuritySystem(self.__main_frame.name, self.__main_frame.zone)
-
-        self.__security.enter_zone()
-
-
-    def create_button_click_handler(self):
-        self.__create_user_page = GetDataUser(self)
-        self.withdraw()
-
+    def on_enter_click(self):
+        self.__controller.enter_button_click_handler(self.__main_frame.name.get(), self.__main_frame.zone.get())
+        self.__main_frame.name.delete(0, ctk.END), self.__main_frame.zone.delete(0, ctk.END)
 
 
     def on_exit_click(self):
+        self.__controller.exit_btn_click_handler()
         self.destroy()
+
+
+
+    def create_button_click_handler(self):
+        self.__controller.exit_btn_click_handler()
+        self.__create_user_page = GetDataUser(self)
+        self.withdraw()
 
 
     @classmethod

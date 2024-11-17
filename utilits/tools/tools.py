@@ -1,41 +1,44 @@
 
-from tkinter.messagebox import *
 
-def validation_enter(name, zone, common_areas, access_zone, data_employees):
+def validation_enter(zone, common_areas, access_zone):
 
     def requires_access(method):
 
         def wrapper(self, *args, **kwargs):
 
-            assert name in data_employees, showerror('Error input', 'This name not in the list of employees')
-
             if zone in common_areas:
-                res = method(self, *args, **kwargs)
-                return res
+                method(self, *args, **kwargs)
+                return True
 
             if zone in access_zone:
-                res = method(self, *args, **kwargs)
-                return res
+                method(self, *args, **kwargs)
+                return True
 
             return False
 
         return wrapper
 
+    return requires_access
 
-def validation_log(name, granted, denied):
+
+
+def validation_log(name, zone):
 
     def log_access(method):
 
         def wrapper(self, *args, **kwargs):
+            from src.model.model import DataStorage as ds
 
             res = method(self, *args, **kwargs)
 
             if res:
-                granted(self).append(f'user access {name} granted')
+                ds.add_granted(self, f'Пользователь с именем {name} вошел в зону {zone}')
 
-            denied(self).append(f'user access {name} denied')
+            ds.add_denied(self, f'Пользователю с именем {name} отказано в доступе в зону {zone}')
 
         return wrapper
+
+    return log_access
 
 
 

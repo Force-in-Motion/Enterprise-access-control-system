@@ -1,9 +1,5 @@
 import json
-import os
-
-path_dir = os.environ.get('LOCALAPPDATA') + r'\Enterprise Control'
-
-path_common_areas = r'..\utilits\storage\common_areas.json'
+import os.path
 
 
 class DataService:
@@ -20,7 +16,7 @@ class DataService:
     @staticmethod
     def check_file_data_log() -> bool:
         """
-        Проверяет наличие файла txt по указанному пути, в данном случае в папке
+        Проверяет наличие файла по указанному пути, в данном случае в папке
         :return: True или False
         """
         file = path_dir + r'\data_log.json'
@@ -34,7 +30,7 @@ class DataService:
     @staticmethod
     def check_file_data_user() -> bool:
         """
-        Проверяет наличие файла txt по указанному пути, в данном случае в папке
+        Проверяет наличие файла по указанному пути, в данном случае в папке
         :return: True или False
         """
         file = path_dir + r'\data_user.json'
@@ -44,37 +40,75 @@ class DataService:
         else:
             return False
 
+
+    @staticmethod
+    def get_common_areas_path() -> str:
+        """
+        Создает относительный путь к файлу common_areas
+        :return: Путь в виде строки
+        """
+        current_dir = os.path.dirname(__file__)
+        common_areas_path = os.path.join(current_dir, '..', 'utilits', 'storage', 'common_areas.json')
+
+        return os.path.abspath(common_areas_path)
+
+
     @staticmethod
     def read_data_user():
+        """
+        Считывает из файла данные пользователя
+        :return: Возвращает данные
+        """
         with open(path_dir + r'\data_user.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data
 
 
     @staticmethod
-    def write_data_user(data):
+    def write_data_user(*args):
+        """
+        Записывает в файл данные пользователя
+        :param args: Принимает любое количество позиционных параметров ( данных для записи )
+        :return: bool
+        """
         with open(path_dir + r'\data_user.json', 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+            json.dump(*args, f, ensure_ascii=False, indent=4)
             return True
 
 
     @staticmethod
     def read_data_log():
+        """
+        Считывает из файла данные о попытках авторизации пользователей
+        :return: Возвращает данные
+        """
         with open(path_dir + r'\data_log.json', 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data
 
 
     @staticmethod
-    def write_data_log(data):
-        with open(path_dir + r'\data_employee.json', 'w', encoding='utf-8') as f:
-            json.dump(data, f, ensure_ascii=False, indent=4)
+    def write_data_log(*args):
+        """
+        Записывает в файл данные о попытках авторизации пользователей
+        :param args: Принимает любое количество позиционных параметров ( данных для записи )
+        :return: bool
+        """
+        with open(path_dir + r'\data_log.json', 'w', encoding='utf-8') as f:
+            json.dump(*args, f, ensure_ascii=False, indent=4)
             return True
 
 
     @staticmethod
     def read_data_common_areas():
-        with open(path_common_areas + r'\common_areas.json', 'r', encoding='utf-8') as f:
+        """
+        Считывает из файла данные об общих зонах доступа, открытых для всех пользователей
+        :return: Возвращает данные
+        """
+        with open(path_common_areas , 'r', encoding='utf-8') as f:
             data = json.load(f)
             return data
 
+path_dir = os.environ.get('LOCALAPPDATA') + r'\Enterprise Control'
+
+path_common_areas = DataService.get_common_areas_path()

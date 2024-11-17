@@ -36,7 +36,7 @@ en_fgc = '#239689'
 
 ex_wh = 150
 ex_ht = 40
-ex_tt = 'Отмена'
+ex_tt = 'Выход'
 ex_ft = ('Helvetica', 17, 'bold')
 ex_ttc = 'black'
 ex_fgc = '#239689'
