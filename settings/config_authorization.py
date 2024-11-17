@@ -1,4 +1,5 @@
 '--main_page--'
+from tkinter import StringVar
 
 geometry = '600x500+650+200'
 title = 'Enterprise Access Control System'
@@ -41,10 +42,25 @@ ex_ft = ('Helvetica', 17, 'bold')
 ex_ttc = 'black'
 ex_fgc = '#239689'
 
-cr_wh = 350
+cr_wh = 240
 cr_ht = 40
-cr_tt = 'Добавить нового пользователя'
+cr_tt = 'Подтвердить'
 cr_ft = ('Helvetica', 17, 'bold')
 cr_ttc = 'black'
 cr_fgc = '#239689'
 
+cb_values = ['Добавить нового пользователя', 'Редактировать данные пользователя', 'Удалить пользователя']
+cb_wh = 380
+cb_ht = 45
+cb_fgc = '#A9A9A9'
+cb_dfgc = '#A9A9A9'
+cb_tc = '#000000'
+cb_dtc = '#000000'
+cb_ft = ('Helvetica', 17, 'bold')
+cb_df = ('Helvetica', 15, 'bold')
+cb_jf = 'center'
+var = cb_values[0]
+
+sl_tt = '________________________________________________________________________'
+sl_tc = '#696969'
+sl_ft = ('Helvetica', 17, 'bold')

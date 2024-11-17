@@ -78,6 +78,17 @@ class MainPageController:
         self.__security.enter_zone(name, zone)
 
 
+    def confirm_btn_click_handler(self, data: str):
+        pass
+
+
+
+
+
+    def statistic_btn_click_handler(self):
+        pass
+
+
     def exit_btn_click_handler(self):
         """
         Обрабатывает клик по кнопке выхода со страницы, вызывает метод модели, сохраняющий данные об авторизации пользователей в базе статистики

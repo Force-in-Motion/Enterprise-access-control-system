@@ -14,41 +14,54 @@ class MainFrame(ctk.CTkFrame):
         self.__main_label = None
         self.__input_name = None
         self.__input_zone = None
+        self.__combobox = None
         self.__config_label()
         self.__config_inputs()
         self.__config_menu_btn()
+        self.__config_combobox()
 
 
     def __config_label(self):
         self.__main_label = ctk.CTkLabel(self, text=ml_tt, text_color=ml_ttc, font=ml_ft)
-        self.__main_label.place(relx=0.2, rely=0.12)
+        self.__main_label.place(relx=0.2, rely=0.1)
+
+        self.__strip_label = ctk.CTkLabel(self, text=sl_tt, text_color=sl_tc, font=sl_ft)
+        self.__strip_label.place(relx=0.001, rely=0.55)
 
 
     def __config_inputs(self):
         self.__input_name = ctk.CTkEntry(self, width=id_wh, height=id_ht, placeholder_text=in_phtt, text_color=id_tc,
                                          placeholder_text_color=id_phttc, fg_color=id_fgc , font=id_ft)
-        self.__input_name.place(relx=0.18, rely=0.25)
+        self.__input_name.place(relx=0.18, rely=0.22)
 
         self.__input_zone = ctk.CTkEntry(self, width=id_wh, height=id_ht, placeholder_text=iz_phtt, text_color=id_tc,
                                          placeholder_text_color=id_phttc, fg_color=id_fgc , font=id_ft)
-        self.__input_zone.place(relx=0.18, rely=0.37)
+        self.__input_zone.place(relx=0.18, rely=0.32)
+
+
+    def __config_combobox(self):
+        self.__combobox = ctk.CTkComboBox(self, width=cb_wh, height=cb_ht, text_color=cb_tc, fg_color=cb_fgc,font=cb_ft,
+                              dropdown_fg_color=cb_dfgc, dropdown_text_color=cb_dtc, dropdown_font=cb_df, justify=cb_jf)
+        self.__combobox.set(var)
+        self.__combobox.configure(values=cb_values)
+        self.__combobox.place(relx=0.2, rely=0.7)
 
 
     def __config_menu_btn(self):
         self.__enter_btn = ctk.CTkButton(self, width=en_wh, height=en_ht, text=en_tt, font=en_ft,
                                        text_color=en_ttc, fg_color=en_fgc)
-        self.__enter_btn.place(relx=0.18, rely=0.55)
+        self.__enter_btn.place(relx=0.18, rely=0.45)
         self.__enter_btn.configure(command=self.__main_page.on_enter_click)
 
         self.__exit_btn = ctk.CTkButton(self, width=ex_wh, height=ex_ht, text=ex_tt, font=ex_ft,
                                           text_color=ex_ttc, fg_color=ex_fgc)
-        self.__exit_btn.place(relx=0.59, rely=0.55)
+        self.__exit_btn.place(relx=0.59, rely=0.45)
         self.__exit_btn.configure(command=self.__main_page.on_exit_click)
 
-        self.__create_btn = ctk.CTkButton(self, width=cr_wh, height=cr_ht, text=cr_tt, font=cr_ft,
+        self.__confirm_btn = ctk.CTkButton(self, width=cr_wh, height=cr_ht, text=cr_tt, font=cr_ft,
                                           text_color=cr_ttc, fg_color=cr_fgc)
-        self.__create_btn.place(relx=0.22, rely=0.75)
-        self.__create_btn.configure(command=self.__main_page.create_button_click_handler)
+        self.__confirm_btn.place(relx=0.3, rely=0.82)
+        self.__confirm_btn.configure(command=self.__main_page.on_confirm_click)
 
 
     @property
@@ -94,7 +107,7 @@ class MainPage(ctk.CTk):
 
 
 
-    def create_button_click_handler(self):
+    def on_confirm_click(self):
         self.__controller.exit_btn_click_handler()
         self.__create_user_page = GetDataUser(self)
         self.withdraw()
