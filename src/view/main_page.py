@@ -3,7 +3,7 @@ from __future__ import annotations
 import customtkinter as ctk
 from src.view.add_user import GetDataUser
 from src.controller.controller import MainPageController
-from src.view.config_view import *
+from settings.config_authorization import *
 
 
 class MainFrame(ctk.CTkFrame):

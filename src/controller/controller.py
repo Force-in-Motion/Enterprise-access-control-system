@@ -1,5 +1,6 @@
-
-from src.model.model import *
+from service.process import Processing
+from src.model.authorization import SecuritySystem
+from src.model.users import User
 from tkinter.messagebox import *
 
 

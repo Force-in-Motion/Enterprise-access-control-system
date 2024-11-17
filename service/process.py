@@ -1,5 +1,5 @@
 import sys
-from service.data_service import DataService as ds
+from service.service import DataService as ds
 
 class Processing:
     @staticmethod

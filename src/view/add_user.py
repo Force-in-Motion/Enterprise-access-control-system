@@ -3,9 +3,9 @@ from __future__ import annotations
 import customtkinter as ctk
 
 from src.controller.controller import UserController
-from static.processing_data import Processing
-from src.view.config_view import *
-from src.model.model import *
+from service.process import Processing
+from settings.config_add_user import *
+
 
 class CreateUserFrame(ctk.CTkFrame):
 
