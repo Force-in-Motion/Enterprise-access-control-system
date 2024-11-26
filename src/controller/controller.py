@@ -1,6 +1,7 @@
 from service.process import Processing
 from src.model.authorization import SecuritySystem
 from src.model.users import User
+from src.model.menu import HandlerMenu
 from tkinter.messagebox import *
 
 
@@ -63,6 +64,7 @@ class MainPageController:
         self.__security = SecuritySystem()
 
 
+
     def enter_button_click_handler(self, name: str, zone: str) -> None:
         """
         Выполняет проверки получаемых данных, вызывает метод модели и передает проверенные данные для авторизации пользователя
@@ -78,14 +80,19 @@ class MainPageController:
         self.__security.enter_zone(name, zone)
 
 
-    def confirm_btn_click_handler(self, data: str):
-        pass
+    def confirm_btn_click_handler(self, main_page, data_combobox: str):
+
+        assert data_combobox != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
+
+        menu = HandlerMenu(main_page, data_combobox)
+        menu.create_page()
 
 
 
 
 
-    def statistic_btn_click_handler(self):
+
+    def statistic_btn_click_handler(self, main_page):
         pass
 
 

@@ -1,6 +1,6 @@
 from service.process import Processing
 from service.service import DataService as ds
-from src.model.storage import DataStorage
+from src.model.log import LogStorage
 from tkinter.messagebox import *
 
 
@@ -11,7 +11,7 @@ class SecuritySystem:
     def __init__(self):
         self.__data_users = Processing.get_data_users()
         self.__common_areas = ds.read_data_common_areas()
-        self.__storage = DataStorage()
+        self.__storage = LogStorage()
 
 
     def enter_zone(self, name: str, zone: str) -> bool:

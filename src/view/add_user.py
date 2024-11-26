@@ -9,7 +9,7 @@ from settings.config_add_user import *
 
 class CreateUserFrame(ctk.CTkFrame):
 
-    def __init__(self, main_page: GetDataUser, *args, **kwargs):
+    def __init__(self, main_page: CreateUser, *args, **kwargs):
         super().__init__(*args, **kwargs)
         self.__main_page = main_page
         self.__main_label = None
@@ -68,7 +68,7 @@ class CreateUserFrame(ctk.CTkFrame):
 
 
 
-class GetDataUser(ctk.CTkToplevel):
+class CreateUser(ctk.CTkToplevel):
 
     def __init__(self, main_window):
         super().__init__()

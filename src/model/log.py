@@ -2,7 +2,7 @@ from service.process import Processing
 from service.service import DataService as ds
 
 
-class DataStorage:
+class LogStorage:
     """
     Управляет данными статистики ( записывает в базу или получает из нее )
     """

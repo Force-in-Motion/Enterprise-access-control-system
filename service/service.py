@@ -48,7 +48,7 @@ class DataService:
         :return: Путь в виде строки
         """
         current_dir = os.path.dirname(__file__)
-        common_areas_path = os.path.join(current_dir, '..', 'utilits', 'storage', 'common_areas.json')
+        common_areas_path = os.path.join(current_dir, '..', 'storage', 'common_areas.json')
 
         return os.path.abspath(common_areas_path)
 

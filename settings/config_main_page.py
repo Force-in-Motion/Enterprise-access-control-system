@@ -1,3 +1,4 @@
+import os
 '--main_page--'
 from tkinter import StringVar
 
@@ -64,3 +65,11 @@ var = cb_values[0]
 sl_tt = '________________________________________________________________________'
 sl_tc = '#696969'
 sl_ft = ('Helvetica', 17, 'bold')
+
+sb_wh = 40
+sb_ht = 40
+sb_tt = ''
+size_img = (40, 40)
+
+current_dir = os.path.dirname(__file__)
+path_img = os.path.join(current_dir, '..', 'media', '3.png')

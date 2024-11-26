@@ -1,9 +1,10 @@
 from __future__ import annotations
 
+from PIL import Image
+
 import customtkinter as ctk
-from src.view.add_user import GetDataUser
 from src.controller.controller import MainPageController
-from settings.config_authorization import *
+from settings.config_main_page import *
 
 
 class MainFrame(ctk.CTkFrame):
@@ -63,6 +64,16 @@ class MainFrame(ctk.CTkFrame):
         self.__confirm_btn.place(relx=0.3, rely=0.82)
         self.__confirm_btn.configure(command=self.__main_page.on_confirm_click)
 
+        self.__img_btn = ctk.CTkImage(light_image=Image.open(path_img), size=size_img)
+        self.__statistic_btn = ctk.CTkButton(self, image=self.__img_btn, width=sb_wh, height=sb_ht, text=sb_tt, corner_radius=0,
+                                             hover_color='#2E2A2A', fg_color='#2E2A2A')
+        self.__statistic_btn.place(relx=0.87, rely=0.87)
+        self.__statistic_btn.configure(command=self.__main_page.on_statistic_click)
+
+
+    @property
+    def menu(self):
+        return self.__combobox
 
     @property
     def name(self):
@@ -108,10 +119,11 @@ class MainPage(ctk.CTk):
 
 
     def on_confirm_click(self):
-        self.__controller.exit_btn_click_handler()
-        self.__create_user_page = GetDataUser(self)
+        self.__controller.confirm_btn_click_handler(self, self.__main_frame.menu.get())
         self.withdraw()
 
+    def on_statistic_click(self):
+        self.__controller.statistic_btn_click_handler(self)
 
     @classmethod
     def run(cls):
