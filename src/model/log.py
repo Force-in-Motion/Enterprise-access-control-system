@@ -9,32 +9,18 @@ class LogStorage:
     def __init__(self):
         self.__data_log = Processing.get_log()
 
-
-    def add_granted(self, data) -> None:
+    def add_statistic(self, key, data) -> None:
         """
         Добавляет в базу статистики данные об успешных авторизациях пользователей
         :param data: Принимает данные в виде строки
         :return: None
         """
-        if 'granted' not in self.__data_log:
+        if key not in self.__data_log:
+            self.__data_log[key] = [data]
 
-            self.__data_log['granted'] = [data]
+        else:
+            self.__data_log[key].append(data)
 
-        self.__data_log['granted'].append(data)
-
-
-
-    def add_denied(self, data) -> None:
-        """
-        Добавляет в базу статистики данные об не успешных авторизациях пользователей
-        :param data: Принимает данные в виде строки
-        :return: None
-        """
-        if 'denied' not in self.__data_log:
-
-            self.__data_log['denied'] = [data]
-
-        self.__data_log['denied'].append(data)
 
 
 

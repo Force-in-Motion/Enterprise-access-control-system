@@ -24,15 +24,15 @@ class SecuritySystem:
 
         if zone in self.__common_areas:
             showinfo('Вход разрешен', f'Вы вошли в зону {zone}')
-            self.__log.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
+            self.__log.add_statistic('granted', f'Пользователь с именем {name} вошел в зону {zone}')
             return True
 
         if zone in access_zone:
             showinfo('Вход разрешен', f'Вы вошли в зону {zone}')
-            self.__log.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
+            self.__log.add_statistic('granted', f'Пользователь с именем {name} вошел в зону {zone}')
             return True
 
         showerror('Вход запрещен', f'Вход в зону {zone} вам запрещен')
-        self.__log.add_denied(f'Пользователю с именем {name} отказано в доступе в зону {zone}')
+        self.__log.add_statistic('denied', f'Пользователю с именем {name} отказано в доступе в зону {zone}')
         return False
 
