@@ -90,7 +90,7 @@ class MainPage(ctk.CTk):
     def __init__(self):
         super().__init__()
         self.__controller = MainPageController(self)
-        self.__create_user_page = None
+        self.protocol("WM_DELETE_WINDOW", self.on_exit_click)
         self.__config_window()
         self.__config_frame()
 

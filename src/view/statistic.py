@@ -57,7 +57,7 @@ class Statistic(ctk.CTkToplevel):
         self.__main_window.deiconify()
         self.destroy()
 
-        
+
     @property
     def scroll(self):
         return self.__scroll

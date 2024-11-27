@@ -8,8 +8,6 @@ class LogStorage:
     """
     def __init__(self):
         self.__data_log = Processing.get_log()
-        self.__data_log['granted'] = []
-        self.__data_log['denied'] = []
 
 
     def add_granted(self, data) -> None:
@@ -18,7 +16,13 @@ class LogStorage:
         :param data: Принимает данные в виде строки
         :return: None
         """
+        if 'granted' not in self.__data_log:
+
+            self.__data_log['granted'] = [data]
+
         self.__data_log['granted'].append(data)
+
+
 
     def add_denied(self, data) -> None:
         """
@@ -26,7 +30,13 @@ class LogStorage:
         :param data: Принимает данные в виде строки
         :return: None
         """
+        if 'denied' not in self.__data_log:
+
+            self.__data_log['denied'] = [data]
+
         self.__data_log['denied'].append(data)
+
+
 
     @property
     def granted(self) -> list[str]:

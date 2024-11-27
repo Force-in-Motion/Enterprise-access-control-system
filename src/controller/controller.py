@@ -1,5 +1,6 @@
 from service.process import Processing
 from src.model.authorization import SecuritySystem
+from src.model.log import LogStorage
 from src.model.users import User
 from src.model.menu import HandlerMenu
 from tkinter.messagebox import *
@@ -61,7 +62,8 @@ class MainPageController:
 
     def __init__(self, main_page):
         self._main_page = main_page
-        self.__security = SecuritySystem()
+        self.__log = LogStorage()
+        self.__security = SecuritySystem(self.__log)
         self.__menu = HandlerMenu( self._main_page)
 
 
@@ -89,13 +91,9 @@ class MainPageController:
         self.__menu.open_add_user_page(data_combobox)
 
 
+    def statistic_btn_click_handler(self, val):
 
-
-
-
-    def statistic_btn_click_handler(self, main_page):
-
-        self.__menu.open_statistic_page()
+        self.__menu.open_statistic_page(val)
 
 
     def exit_btn_click_handler(self):
@@ -103,4 +101,4 @@ class MainPageController:
         Обрабатывает клик по кнопке выхода со страницы, вызывает метод модели, сохраняющий данные об авторизации пользователей в базе статистики
         :return:
         """
-        self.__security.storage.save()
+        self.__log.save()

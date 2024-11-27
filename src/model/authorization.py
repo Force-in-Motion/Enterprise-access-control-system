@@ -1,6 +1,5 @@
 from service.process import Processing
 from service.service import DataService as ds
-from src.model.log import LogStorage
 from tkinter.messagebox import *
 
 
@@ -8,10 +7,10 @@ class SecuritySystem:
     """
     Управляет авторизацией пользователей и их уровнями доступа
     """
-    def __init__(self):
+    def __init__(self, log):
         self.__data_users = Processing.get_data_users()
         self.__common_areas = ds.read_data_common_areas()
-        self.__log = LogStorage()
+        self.__log = log
 
 
     def enter_zone(self, name: str, zone: str) -> bool:
@@ -22,6 +21,7 @@ class SecuritySystem:
         :return: bool
         """
         access_zone = self.__data_users[name]
+
         if zone in self.__common_areas:
             showinfo('Вход разрешен', f'Вы вошли в зону {zone}')
             self.__log.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
@@ -35,9 +35,4 @@ class SecuritySystem:
         showerror('Вход запрещен', f'Вход в зону {zone} вам запрещен')
         self.__log.add_denied(f'Пользователю с именем {name} отказано в доступе в зону {zone}')
         return False
-
-
-    @property
-    def log(self):
-        return self.__log
 

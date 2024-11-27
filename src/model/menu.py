@@ -14,8 +14,9 @@ class HandlerMenu:
             self.__create_user = CreateUser(self.__main_page)
 
 
-    def open_statistic_page(self):
+    def open_statistic_page(self, val):
         from src.view.statistic import Statistic
 
         self.__statistic = Statistic(self.__main_page)
 
+        self.__statistic.scroll.text = val
