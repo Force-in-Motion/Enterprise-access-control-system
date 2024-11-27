@@ -13,7 +13,8 @@ class UserController:
     """
 
     def __init__(self):
-        self.__user = User()
+        self.__log = LogStorage()
+        self.__user = User(self.__log)
         self.__old_data = self.__user.data_users.copy()
 
     def add_button_click_handler(self, name: str, access_zone: str) -> None:
@@ -88,7 +89,9 @@ class MainPageController:
 
         assert data_combobox != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
 
-        self.__menu.open_add_user_page(data_combobox)
+        if data_combobox == 'Добавить нового пользователя':
+
+            self.__menu.open_add_user_page()
 
 
     def statistic_btn_click_handler(self, val):

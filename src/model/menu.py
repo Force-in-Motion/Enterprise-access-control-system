@@ -6,12 +6,10 @@ class HandlerMenu:
         self.__create_user = None
         self.__statistic = None
 
-    def open_add_user_page(self, data_combobox):
+    def open_add_user_page(self):
         from src.view.add_user import CreateUser
 
-        if data_combobox == 'Добавить нового пользователя':
-
-            self.__create_user = CreateUser(self.__main_page)
+        self.__create_user = CreateUser(self.__main_page)
 
 
     def open_statistic_page(self, val):
