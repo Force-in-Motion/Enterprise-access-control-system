@@ -11,7 +11,7 @@ class SecuritySystem:
     def __init__(self):
         self.__data_users = Processing.get_data_users()
         self.__common_areas = ds.read_data_common_areas()
-        self.__storage = LogStorage()
+        self.__log = LogStorage()
 
 
     def enter_zone(self, name: str, zone: str) -> bool:
@@ -24,20 +24,20 @@ class SecuritySystem:
         access_zone = self.__data_users[name]
         if zone in self.__common_areas:
             showinfo('Вход разрешен', f'Вы вошли в зону {zone}')
-            self.__storage.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
+            self.__log.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
             return True
 
         if zone in access_zone:
             showinfo('Вход разрешен', f'Вы вошли в зону {zone}')
-            self.__storage.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
+            self.__log.add_granted(f'Пользователь с именем {name} вошел в зону {zone}')
             return True
 
         showerror('Вход запрещен', f'Вход в зону {zone} вам запрещен')
-        self.__storage.add_denied(f'Пользователю с именем {name} отказано в доступе в зону {zone}')
+        self.__log.add_denied(f'Пользователю с именем {name} отказано в доступе в зону {zone}')
         return False
 
 
     @property
-    def storage(self):
-        return self.__storage
+    def log(self):
+        return self.__log
 

@@ -89,7 +89,7 @@ class MainFrame(ctk.CTkFrame):
 class MainPage(ctk.CTk):
     def __init__(self):
         super().__init__()
-        self.__controller = MainPageController()
+        self.__controller = MainPageController(self)
         self.__create_user_page = None
         self.__config_window()
         self.__config_frame()
@@ -119,11 +119,12 @@ class MainPage(ctk.CTk):
 
 
     def on_confirm_click(self):
-        self.__controller.confirm_btn_click_handler(self, self.__main_frame.menu.get())
+        self.__controller.confirm_btn_click_handler(self.__main_frame.menu.get())
         self.withdraw()
 
     def on_statistic_click(self):
         self.__controller.statistic_btn_click_handler(self)
+        self.withdraw()
 
     @classmethod
     def run(cls):

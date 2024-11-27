@@ -98,7 +98,7 @@ class CreateUser(ctk.CTkToplevel):
 
 
     def on_del_click(self):
-        self.__controller.del_button_click_handler(self.__main_frame.name)
+        self.__controller.del_button_click_handler(self.__main_frame.name.get())
         self.__main_frame.name.delete(0, ctk.END)
 
 

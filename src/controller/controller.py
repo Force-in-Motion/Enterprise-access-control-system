@@ -59,9 +59,10 @@ class MainPageController:
     И вызывает соответствующие методы модели, передавая им проверенные данные
     """
 
-    def __init__(self):
-        self.__data_users = Processing.get_data_users()
+    def __init__(self, main_page):
+        self._main_page = main_page
         self.__security = SecuritySystem()
+        self.__menu = HandlerMenu( self._main_page)
 
 
 
@@ -72,20 +73,20 @@ class MainPageController:
         :param zone: Принимает зону для входа пользователя в виде строки
         :return:
         """
+        data_users = Processing.get_data_users()
 
         assert name != '' and zone != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
 
-        assert name in self.__data_users, showerror('Ошибка ввода','Пользователь с таким именем отсутствует в базе')
+        assert name in data_users, showerror('Ошибка ввода','Пользователь с таким именем отсутствует в базе')
 
         self.__security.enter_zone(name, zone)
 
 
-    def confirm_btn_click_handler(self, main_page, data_combobox: str):
+    def confirm_btn_click_handler(self, data_combobox: str):
 
         assert data_combobox != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
 
-        menu = HandlerMenu(main_page, data_combobox)
-        menu.create_page()
+        self.__menu.open_add_user_page(data_combobox)
 
 
 
@@ -93,7 +94,8 @@ class MainPageController:
 
 
     def statistic_btn_click_handler(self, main_page):
-        pass
+
+        self.__menu.open_statistic_page()
 
 
     def exit_btn_click_handler(self):

@@ -32,9 +32,7 @@ class User:
         :return: bool
         """
         if name in self.__data_users:
-
             del self.__data_users[name]
-
             showinfo('Успех', 'Пользователь успешно удален')
             return True
 

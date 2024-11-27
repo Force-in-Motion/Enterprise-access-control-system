@@ -1,14 +1,21 @@
 
 
 class HandlerMenu:
-    def __init__(self, main_page, data_combobox):
-
-        self.__data_combobox = data_combobox
+    def __init__(self, main_page):
         self.__main_page = main_page
+        self.__create_user = None
+        self.__statistic = None
 
-    def create_page(self):
+    def open_add_user_page(self, data_combobox):
         from src.view.add_user import CreateUser
 
-        if self.__data_combobox == 'Добавить нового пользователя':
+        if data_combobox == 'Добавить нового пользователя':
 
-            create_user = CreateUser(self.__main_page)
+            self.__create_user = CreateUser(self.__main_page)
+
+
+    def open_statistic_page(self):
+        from src.view.statistic import Statistic
+
+        self.__statistic = Statistic(self.__main_page)
+
