@@ -1,5 +1,4 @@
 
-from service.process import Processing
 from service.service import DataService as ds
 from tkinter.messagebox import *
 
@@ -10,7 +9,7 @@ class User:
     """
     def __init__(self, log):
         self.__log = log
-        self.__data_users = Processing.get_data_users()
+        self.__data_users = ds.get_data_users()
 
 
     def add_access_zone(self, name: str, access_zone: str) -> bool:
@@ -22,7 +21,7 @@ class User:
         """
         self.__data_users[name] = access_zone.split(',')
 
-        self.__log.add_statistic('add_user', f'Добавлен пользователь с именем {name}, доступные зоны: {access_zone}')
+        self.__log.add_statistic('add_user', f'Добавлен пользователь с именем {name}. Доступные зоны: {access_zone}')
 
         showinfo('Успех', 'Пользователь успешно добавлен')
 

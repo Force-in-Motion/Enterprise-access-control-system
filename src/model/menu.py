@@ -1,3 +1,5 @@
+from service.service import DataService as ds
+from service.process import Processing
 
 
 class HandlerMenu:
@@ -12,9 +14,13 @@ class HandlerMenu:
         self.__create_user = CreateUser(self.__main_page)
 
 
-    def open_statistic_page(self, val):
+    def open_statistic_page(self):
         from src.view.statistic import Statistic
 
         self.__statistic = Statistic(self.__main_page)
 
-        self.__statistic.scroll.text = val
+        data = ds.get_log()
+
+        value = Processing.converts_data_to_str(data)
+
+        self.__statistic.scroll.set_label_text(value)

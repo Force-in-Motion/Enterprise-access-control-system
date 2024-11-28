@@ -17,6 +17,7 @@ cb_ft = ('Helvetica', 17, 'bold')
 s_wh = 600
 s_ht = 450
 s_fgc = '#A9A9A9'
+s_jf = 'left'
 
 s_ltc = 'black'
 s_lft = ('Helvetica', 17, 'bold')

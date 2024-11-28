@@ -1,10 +1,11 @@
-from service.process import Processing
+from service.service import DataService as ds
 from src.model.authorization import SecuritySystem
 from src.model.log import LogStorage
 from src.model.users import User
 from src.model.menu import HandlerMenu
 from tkinter.messagebox import *
 
+LOG = LogStorage()
 
 class UserController:
     """
@@ -13,8 +14,7 @@ class UserController:
     """
 
     def __init__(self):
-        self.__log = LogStorage()
-        self.__user = User(self.__log)
+        self.__user = User(LOG)
         self.__old_data = self.__user.data_users.copy()
 
     def add_button_click_handler(self, name: str, access_zone: str) -> None:
@@ -63,7 +63,7 @@ class MainPageController:
 
     def __init__(self, main_page):
         self._main_page = main_page
-        self.__log = LogStorage()
+        self.__log = LOG
         self.__security = SecuritySystem(self.__log)
         self.__menu = HandlerMenu( self._main_page)
 
@@ -76,7 +76,7 @@ class MainPageController:
         :param zone: Принимает зону для входа пользователя в виде строки
         :return:
         """
-        data_users = Processing.get_data_users()
+        data_users = ds.get_data_users()
 
         assert name != '' and zone != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
 
@@ -94,9 +94,9 @@ class MainPageController:
             self.__menu.open_add_user_page()
 
 
-    def statistic_btn_click_handler(self, val):
+    def statistic_btn_click_handler(self):
 
-        self.__menu.open_statistic_page(val)
+        self.__menu.open_statistic_page()
 
 
     def exit_btn_click_handler(self):

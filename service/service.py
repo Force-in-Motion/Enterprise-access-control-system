@@ -109,6 +109,19 @@ class DataService:
             data = json.load(f)
             return data
 
+
+    @staticmethod
+    def get_data_users():
+        DataService.create_folder()
+        return DataService.read_data_user() if DataService.check_file_data_user() else {}
+
+
+    @staticmethod
+    def get_log():
+        DataService.create_folder()
+        return DataService.read_data_log() if DataService.check_file_data_log() else {}
+
+
 path_dir = os.environ.get('LOCALAPPDATA') + r'\Enterprise Control'
 
 path_common_areas = DataService.get_common_areas_path()

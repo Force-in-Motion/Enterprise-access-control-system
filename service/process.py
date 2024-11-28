@@ -8,13 +8,17 @@ class Processing:
 
 
     @staticmethod
-    def get_data_users():
-        ds.create_folder()
-        return ds.read_data_user() if ds.check_file_data_user() else {}
+    def converts_data_to_str(data):
+        sorted_keys = sorted(data.keys())
 
+        result_string = ""
 
-    @staticmethod
-    def get_log():
-        ds.create_folder()
-        return ds.read_data_log() if ds.check_file_data_log() else {}
+        for key in sorted_keys:
+            values = ', '.join(data[key])
+
+            values = values.replace(', ', '\n')
+
+            result_string += f"{values}\n"
+
+        return result_string
 

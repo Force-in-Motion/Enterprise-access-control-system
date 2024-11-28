@@ -123,8 +123,9 @@ class MainPage(ctk.CTk):
         self.withdraw()
 
     def on_statistic_click(self):
-        self.__controller.statistic_btn_click_handler(self)
+        self.__controller.statistic_btn_click_handler()
         self.withdraw()
+
 
     @classmethod
     def run(cls):

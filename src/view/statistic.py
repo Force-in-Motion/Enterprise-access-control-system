@@ -5,25 +5,16 @@ class Scroll(ctk.CTkScrollableFrame):
     def __init__(self, main_page, *args, **kwargs):
         super().__init__(main_page, *args, **kwargs)
         self.__main_page = main_page
-        self.__text = None
         self.__label_text = None
         self.__config_text()
 
 
     def __config_text(self) -> None:
-        self.__label_text = ctk.CTkLabel(self, text=self.__text, text_color=s_ltc, font=s_lft)
-        self.__label_text.grid(row=1, column=1, padx=10, pady=10)
+        self.__label_text = ctk.CTkLabel(self, text='', text_color=s_ltc, font=s_lft, justify=s_jf)
+        self.__label_text.grid( padx=(10, 0), pady=10)
 
-
-    @property
-    def text(self):
-        return self.__text
-
-
-    @text.setter
-    def text(self, val):
-        self.__text = val
-
+    def set_label_text(self, value):
+        self.__label_text.configure(text=value)
 
 
 class Statistic(ctk.CTkToplevel):

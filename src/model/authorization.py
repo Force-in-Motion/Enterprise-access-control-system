@@ -1,4 +1,4 @@
-from service.process import Processing
+
 from service.service import DataService as ds
 from tkinter.messagebox import *
 
@@ -8,7 +8,7 @@ class SecuritySystem:
     Управляет авторизацией пользователей и их уровнями доступа
     """
     def __init__(self, log):
-        self.__data_users = Processing.get_data_users()
+        self.__data_users = ds.get_data_users()
         self.__common_areas = ds.read_data_common_areas()
         self.__log = log
 
