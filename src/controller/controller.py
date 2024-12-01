@@ -39,7 +39,7 @@ class UserController:
         """
         assert name != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
 
-        self.__user.remove_user(name)
+        self.__user.del_user(name)
 
 
     def save_button_click_handler(self) -> None:
@@ -63,10 +63,8 @@ class MainPageController:
 
     def __init__(self, main_page):
         self._main_page = main_page
-        self.__log = LOG
-        self.__security = SecuritySystem(self.__log)
+        self.__security = SecuritySystem(LOG)
         self.__menu = HandlerMenu( self._main_page)
-
 
 
     def enter_button_click_handler(self, name: str, zone: str) -> None:
@@ -90,8 +88,13 @@ class MainPageController:
         assert data_combobox != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
 
         if data_combobox == 'Добавить нового пользователя':
-
             self.__menu.open_add_user_page()
+
+        if data_combobox == 'Удалить пользователя':
+            self.__menu.open_del_user_page()
+
+        if data_combobox == 'Редактирование зон общего доступа':
+            self.__menu.open_edit_common_areas()
 
 
     def statistic_btn_click_handler(self):
@@ -104,4 +107,30 @@ class MainPageController:
         Обрабатывает клик по кнопке выхода со страницы, вызывает метод модели, сохраняющий данные об авторизации пользователей в базе статистики
         :return:
         """
-        self.__log.save()
+        LOG.save()
+
+
+class CommonAreasController:
+    def __init__(self):
+        self.__security = SecuritySystem(LOG)
+
+    def add_button_click_handler(self, zone):
+
+        assert zone != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
+
+        assert zone not in self.__security.common_areas["ca"], showerror('Ошибка ввода', 'Такая зона уже есть в списке')
+
+        self.__security.add_common_areas(zone)
+
+
+    def del_button_click_handler(self, zone):
+
+        assert zone != '', showerror('Ошибка ввода', 'Пустая строка не может быть принята')
+
+        assert zone in self.__security.common_areas["ca"], showerror('Ошибка ввода', 'Невозможно удалить, такой зоны нет в списке')
+
+        self.__security.del_common_areas(zone)
+
+
+    def save_button_click_handler(self):
+        self.__security.save()

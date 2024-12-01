@@ -111,6 +111,13 @@ class DataService:
 
 
     @staticmethod
+    def write_data_common_areas(*args):
+        with open(path_common_areas, 'w', encoding='utf-8') as f:
+            json.dump(*args, f, ensure_ascii=False, indent=4)
+            return True
+
+
+    @staticmethod
     def get_data_users():
         DataService.create_folder()
         return DataService.read_data_user() if DataService.check_file_data_user() else {}

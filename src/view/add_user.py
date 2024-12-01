@@ -22,7 +22,7 @@ class CreateUserFrame(ctk.CTkFrame):
 
     def __config_label(self):
         self.__add_user = ctk.CTkLabel(self, text=au_tt, text_color=au_ttc, font=au_ft)
-        self.__add_user.place(relx=0.20, rely=0.15)
+        self.__add_user.place(relx=0.17, rely=0.12)
 
 
     def __config_inputs(self):
@@ -41,20 +41,15 @@ class CreateUserFrame(ctk.CTkFrame):
         self.__add_btn.place(relx=0.18, rely=0.55)
         self.__add_btn.configure(command=self.__main_page.on_add_click)
 
-        self.__del_btn = ctk.CTkButton(self, width=d_wh, height=d_ht, text=d_tt, font=d_ft,
-                                        text_color=d_ttc, fg_color=d_fgc)
-        self.__del_btn.place(relx=0.59, rely=0.55)
-        self.__del_btn.configure(command=self.__main_page.on_del_click)
+        self.__cancel_btn = ctk.CTkButton(self, width=c_wh, height=c_ht, text=c_tt, font=c_ft,
+                                        text_color=c_ttc, fg_color=c_fgc)
+        self.__cancel_btn.place(relx=0.59, rely=0.55)
+        self.__cancel_btn.configure(command=self.__main_page.on_cancel_click)
 
         self.__save_btn = ctk.CTkButton(self, width=s_wh, height=s_ht, text=s_tt, font=s_ft,
                                           text_color=s_ttc, fg_color=s_fgc)
-        self.__save_btn.place(relx=0.22, rely=0.7)
+        self.__save_btn.place(relx=0.22, rely=0.75)
         self.__save_btn.configure(command=self.__main_page.on_save_click)
-
-        self.__cancel_btn = ctk.CTkButton(self, width=c_wh, height=c_ht, text=c_tt, font=c_ft,
-                                          text_color=c_ttc, fg_color=c_fgc)
-        self.__cancel_btn.place(relx=0.22, rely=0.82)
-        self.__cancel_btn.configure(command=self.__main_page.on_cancel_click)
 
 
     @property
@@ -95,11 +90,6 @@ class CreateUser(ctk.CTkToplevel):
     def on_add_click(self):
         self.__controller.add_button_click_handler(self.__main_frame.name.get(), self.__main_frame.zone.get())
         self.__main_frame.name.delete(0, ctk.END), self.__main_frame.zone.delete(0, ctk.END)
-
-
-    def on_del_click(self):
-        self.__controller.del_button_click_handler(self.__main_frame.name.get())
-        self.__main_frame.name.delete(0, ctk.END)
 
 
     def on_save_click(self):

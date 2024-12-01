@@ -9,6 +9,7 @@ class Processing:
 
     @staticmethod
     def converts_data_to_str(data):
+
         sorted_keys = sorted(data.keys())
 
         result_string = ""

@@ -1,4 +1,6 @@
 import customtkinter as ctk
+
+from service.process import Processing
 from settings.config_statistic import *
 
 class Scroll(ctk.CTkScrollableFrame):
@@ -22,6 +24,7 @@ class Statistic(ctk.CTkToplevel):
         super().__init__(*args, **kwargs)
         self.__main_window = main_window
         self.__scroll = None
+        self.protocol("WM_DELETE_WINDOW", Processing.on_close)
         self.__config_scroll()
         self.__config_window()
         self.__config_btn()

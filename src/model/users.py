@@ -28,7 +28,7 @@ class User:
         return True
 
 
-    def remove_user(self, name: str) -> bool:
+    def del_user(self, name: str) -> bool:
         """
         Удаляет пользователя из базы данных
         :param name: Принимает имя пользователя

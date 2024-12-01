@@ -1,5 +1,5 @@
 '--Statistic--'
-geometry = '600x600+650+200'
+geometry = '700x600+650+200'
 title = 'Enterprise Access Control System'
 rzb_wh = False
 rzb_ht = False
@@ -14,7 +14,7 @@ cb_ft = ('Helvetica', 17, 'bold')
 
 
 '--Scroll--'
-s_wh = 600
+s_wh = 700
 s_ht = 450
 s_fgc = '#A9A9A9'
 s_jf = 'left'

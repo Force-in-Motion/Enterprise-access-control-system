@@ -6,12 +6,26 @@ class HandlerMenu:
     def __init__(self, main_page):
         self.__main_page = main_page
         self.__create_user = None
+        self.__del_user = None
         self.__statistic = None
+
 
     def open_add_user_page(self):
         from src.view.add_user import CreateUser
 
         self.__create_user = CreateUser(self.__main_page)
+
+
+    def open_del_user_page(self):
+        from src.view.del_user import DelUser
+
+        self.__del_user = DelUser(self.__main_page)
+
+
+    def open_edit_common_areas(self):
+        from src.view.edit_common_areas import EditCommonAreas
+
+        self.__del_user = EditCommonAreas(self.__main_page)
 
 
     def open_statistic_page(self):
