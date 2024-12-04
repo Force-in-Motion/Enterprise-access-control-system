@@ -2,14 +2,23 @@ import sys
 from service.service import DataService as ds
 
 class Processing:
+
     @staticmethod
     def on_close():
+        """
+        Закрывает приложение
+        :return:
+        """
         sys.exit()
 
 
     @staticmethod
-    def converts_data_to_str(data):
-
+    def converts_data_to_str(data) -> str:
+        """
+        Сортирует данные и преобразует в строки для вывода статистики
+        :param data: dict
+        :return: str
+        """
         sorted_keys = sorted(data.keys())
 
         result_string = ""

@@ -1,6 +1,5 @@
 import os
-'--main_page--'
-from tkinter import StringVar
+'--------------------main_page-------------------------'
 
 geometry = '600x500+650+200'
 title = 'Enterprise Access Control System'
@@ -11,7 +10,7 @@ rzb_ht = False
 f_wh = 600
 f_ht = 500
 
-'--main_frame--'
+'----------------------main_frame------------------------'
 
 'config_label'
 ml_tt ='Система пропускного контроля'

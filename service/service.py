@@ -112,6 +112,11 @@ class DataService:
 
     @staticmethod
     def write_data_common_areas(*args):
+        """
+        Записывает в файл измененные данные об общедоступных зонах для пользователей
+        :param args: Принимает неограниченное количество позиционных данных
+        :return: bool
+        """
         with open(path_common_areas, 'w', encoding='utf-8') as f:
             json.dump(*args, f, ensure_ascii=False, indent=4)
             return True
@@ -119,12 +124,18 @@ class DataService:
 
     @staticmethod
     def get_data_users():
+        """
+        Результатом функции будет созданная папка если ее нет и подготовленная среда для записи данных
+        """
         DataService.create_folder()
         return DataService.read_data_user() if DataService.check_file_data_user() else {}
 
 
     @staticmethod
     def get_log():
+        """
+        Результатом функции будет созданная папка если ее нет и подготовленная среда для записи данных
+        """
         DataService.create_folder()
         return DataService.read_data_log() if DataService.check_file_data_log() else {}
 
